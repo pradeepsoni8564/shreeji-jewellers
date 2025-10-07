@@ -1,0 +1,101 @@
+{
+  "categories": [
+    {
+      "name": "Rings",
+      "slug": "rings",
+      "thumbnail": "categories/rings/ring1.jpg",
+      "count": 19,
+      "items": [
+        { "image": "categories/rings/ring1.jpg", "weight": "5.2g" },
+        { "image": "categories/rings/ring2.jpg", "weight": "4.8g" },
+        { "image": "categories/rings/ring3.jpg", "weight": "5.1g" },
+        { "image": "categories/rings/ring4.jpg", "weight": "4.9g" },
+        { "image": "categories/rings/ring5.jpg", "weight": "5.0g" },
+        { "image": "categories/rings/ring6.jpg", "weight": "5.3g" },
+        { "image": "categories/rings/ring7.jpg", "weight": "4.7g" },
+        { "image": "categories/rings/ring8.jpg", "weight": "5.4g" },
+        { "image": "categories/rings/ring9.png", "weight": "5.0g" },
+        { "image": "categories/rings/ring10.jpg", "weight": "5.1g" },
+        { "image": "categories/rings/ring11.jpg", "weight": "4.8g" },
+        { "image": "categories/rings/ring12.jpg", "weight": "5.2g" },
+        { "image": "categories/rings/ring13.png", "weight": "4.9g" },
+        { "image": "categories/rings/ring14.png", "weight": "5.3g" },
+        { "image": "categories/rings/ring15.jpg", "weight": "5.0g" },
+        { "image": "categories/rings/ring16.jpg", "weight": "4.7g" },
+        { "image": "categories/rings/ring17.jpg", "weight": "5.2g" },
+        { "image": "categories/rings/ring18.jpg", "weight": "5.1g" },
+        { "image": "categories/rings/ring19.jpg", "weight": "4.9g" }
+      ]
+    },
+    {
+      "name": "Necklaces",
+      "slug": "necklaces",
+      "thumbnail": "categories/necklaces/necklace1.jpg",
+      "count": 23,
+      "items": [
+        { "image": "categories/necklaces/necklace1.jpg", "weight": "11.2g" },
+        { "image": "categories/necklaces/necklace2.jpg", "weight": "13.8g" },
+        { "image": "categories/necklaces/necklace3.jpg", "weight": "14.4g" },
+        { "image": "categories/necklaces/necklace4.jpg", "weight": "12.9g" },
+        { "image": "categories/necklaces/necklace5.jpg", "weight": "15.3g" },
+        { "image": "categories/necklaces/necklace6.jpg", "weight": "16.1g" },
+        { "image": "categories/necklaces/necklace7.jpg", "weight": "10.7g" },
+        { "image": "categories/necklaces/necklace8.jpg", "weight": "11.5g" },
+        { "image": "categories/necklaces/necklace9.jpg", "weight": "14.0g" },
+        { "image": "categories/necklaces/necklace10.jpg", "weight": "13.2g" },
+        { "image": "categories/necklaces/necklace11.png", "weight": "12.4g" },
+        { "image": "categories/necklaces/necklace12.png", "weight": "13.7g" },
+        { "image": "categories/necklaces/necklace13.jpg", "weight": "15.9g" },
+        { "image": "categories/necklaces/necklace14.png", "weight": "14.5g" },
+        { "image": "categories/necklaces/necklace15.jpg", "weight": "12.6g" },
+        { "image": "categories/necklaces/necklace16.png", "weight": "13.9g" },
+        { "image": "categories/necklaces/necklace17.jpg", "weight": "11.8g" },
+        { "image": "categories/necklaces/necklace18.jpg", "weight": "12.2g" },
+        { "image": "categories/necklaces/necklace19.png", "weight": "15.1g" },
+        { "image": "categories/necklaces/necklace21.jpg", "weight": "13.0g" },
+        { "image": "categories/necklaces/necklace22.jpg", "weight": "14.3g" },
+        { "image": "categories/necklaces/necklace23.jpg", "weight": "16.0g" }
+      ]
+    },
+    {
+      "name": "Bangles",
+      "slug": "bangles",
+      "thumbnail": "categories/bangles/bangle1.jpg",
+      "count": 2,
+      "items": [
+        { "image": "categories/bangles/bangle1.jpg", "weight": "5.2g" },
+        { "image": "categories/bangles/bangle2.jpg", "weight": "4.8g" }
+      ]
+    },
+    {
+      "name": "Goldchen",
+      "slug": "goldchen",
+      "thumbnail": "categories/goldchen/goldchain1.jpg",
+      "count": 23,
+      "items": [
+        { "image": "categories/goldchen/goldchain1.jpg", "weight": "11.2g" },
+        { "image": "categories/goldchen/goldchain2.jpg", "weight": "13.8g" },
+        { "image": "categories/goldchen/goldchain3.jpg", "weight": "14.4g" },
+        { "image": "categories/goldchen/goldchain4.jpg", "weight": "12.9g" },
+        { "image": "categories/goldchen/goldchain5.jpg", "weight": "15.3g" },
+        { "image": "categories/goldchen/goldchain6.jpg", "weight": "16.1g" },
+        { "image": "categories/goldchen/goldchain7.jpg", "weight": "10.7g" },
+        { "image": "categories/goldchen/goldchain8.jpg", "weight": "11.5g" },
+        { "image": "categories/goldchen/goldchain9.jpg", "weight": "14.0g" },
+        { "image": "categories/goldchen/goldchain10.jpg", "weight": "13.2g" },
+        { "image": "categories/goldchen/goldchain11.png", "weight": "12.4g" },
+        { "image": "categories/goldchen/goldchain12.png", "weight": "13.7g" },
+        { "image": "categories/goldchen/goldchain13.jpg", "weight": "15.9g" },
+        { "image": "categories/goldchen/goldchain14.png", "weight": "14.5g" },
+        { "image": "categories/goldchen/goldchain15.jpg", "weight": "12.6g" },
+        { "image": "categories/goldchen/goldchain16.png", "weight": "13.9g" },
+        { "image": "categories/goldchen/goldchain17.jpg", "weight": "11.8g" },
+        { "image": "categories/goldchen/goldchain18.jpg", "weight": "12.2g" },
+        { "image": "categories/goldchen/goldchain19.png", "weight": "15.1g" },
+        { "image": "categories/goldchen/goldchain21.jpg", "weight": "13.0g" },
+        { "image": "categories/goldchen/goldchain22.jpg", "weight": "14.3g" },
+        { "image": "categories/goldchen/goldchain23.jpg", "weight": "16.0g" }
+      ]
+    }
+  ]
+}

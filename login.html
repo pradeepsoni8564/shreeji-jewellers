@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login — Shreeji Jewellers</title>
+  <meta name="description" content="Login to your Shreeji Jewellers account." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-page="login">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-mark" aria-hidden="true">SJ</span>
+        <span class="sr-only">Shreeji Jewellers</span>
+      </a>
+      <nav class="nav">
+        <a class="nav-link" href="register.html">Register</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="auth">
+      <div class="auth-card" role="form" aria-labelledby="login-title">
+        <h1 id="login-title" class="auth-title">Welcome back</h1>
+        <form id="loginForm" novalidate>
+          <div class="field">
+            <label for="login-username" class="label">Username</label>
+            <input id="login-username" name="username" type="text" class="input" placeholder="Enter your username" required />
+            <p class="error" data-error-for="login-username" aria-live="polite"></p>
+          </div>
+
+          <div class="field">
+            <label for="login-password" class="label">Password</label>
+            <div class="input-group">
+              <input id="login-password" name="password" type="password" class="input" placeholder="Enter your password" required minlength="6" />
+              <button type="button" class="icon-btn password-toggle" aria-label="Show password" data-target="login-password">
+                 Eye icon 
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12Z" stroke="currentColor" stroke-width="1.6" />
+                  <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6" />
+                </svg>
+              </button>
+            </div>
+            <p class="error" data-error-for="login-password" aria-live="polite"></p>
+          </div>
+
+          <div class="actions">
+            <button type="submit" class="btn btn-primary">Login</button>
+            <a href="forgot-password.html" class="link">Forgot password?</a>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; <span id="year"></span> Shreeji Jewellers. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Register — Shreeji Jewellers</title>
+  <meta name="description" content="Create your account at Shreeji Jewellers." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-page="register">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-mark" aria-hidden="true">SJ</span>
+        <span class="sr-only">Shreeji Jewellers</span>
+      </a>
+      <nav class="nav">
+        <a class="nav-link" href="login.html">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="auth">
+      <div class="auth-card" role="form" aria-labelledby="register-title">
+        <h1 id="register-title" class="auth-title">Create an account</h1>
+        <form id="registerForm" novalidate>
+          <div class="field">
+            <label for="reg-username" class="label">Username</label>
+            <input id="reg-username" name="username" type="text" class="input" placeholder="Choose a username" required />
+            <p class="error" data-error-for="reg-username" aria-live="polite"></p>
+          </div>
+
+          <div class="field">
+            <label for="reg-email" class="label">Email</label>
+            <input id="reg-email" name="email" type="email" class="input" placeholder="you@example.com" required />
+            <p class="error" data-error-for="reg-email" aria-live="polite"></p>
+          </div>
+
+          <div class="field">
+            <label for="reg-password" class="label">Password</label>
+            <div class="input-group">
+              <input id="reg-password" name="password" type="password" class="input" placeholder="Create a password" required minlength="6" />
+              <button type="button" class="icon-btn password-toggle" aria-label="Show password" data-target="reg-password">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12Z" stroke="currentColor" stroke-width="1.6" />
+                  <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6" />
+                </svg>
+              </button>
+            </div>
+            <p class="error" data-error-for="reg-password" aria-live="polite"></p>
+          </div>
+
+          <div class="field">
+            <label for="reg-confirm" class="label">Confirm Password</label>
+            <div class="input-group">
+              <input id="reg-confirm" name="confirm" type="password" class="input" placeholder="Re-enter password" required minlength="6" />
+              <button type="button" class="icon-btn password-toggle" aria-label="Show password" data-target="reg-confirm">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12Z" stroke="currentColor" stroke-width="1.6" />
+                  <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6" />
+                </svg>
+              </button>
+            </div>
+            <p class="error" data-error-for="reg-confirm" aria-live="polite"></p>
+          </div>
+
+          <div class="actions">
+            <button type="submit" class="btn btn-primary">Create account</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; <span id="year"></span> Shreeji Jewellers. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/script.js" defer></script>
+</body>
+</html>

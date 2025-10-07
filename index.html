@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shreeji Jewellers — Categories</title>
+  <meta name="description" content="Explore rings, necklaces, bangles and more at Shreeji Jewellers." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" /> 
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-page="home">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-mark" aria-hidden="true">SJ</span>
+        <span class="sr-only">Shreeji Jewellers</span>
+      </a>
+      <nav class="nav">
+        <a class="nav-link wishlist-badge" href="wishlist.html">
+    Wishlist
+    <span class="wishlist-count" style="display: none;">0</span>
+  </a>
+        <a class="nav-link" href="login.html">Login</a>
+        <a class="nav-link" href="register.html">Register</a>
+        <a class="nav-link" href="forgot-password.html">Forgot Password</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1 class="hero-title">Timeless Designs. Lasting Value.</h1>
+      <p class="hero-subtitle text-pretty">
+        Discover our curated collection of rings, necklaces, bangles, and more.
+      </p>
+    </section>
+
+    <section aria-labelledby="categories-title" class="section">
+      <div class="section-head">
+        <h2 id="categories-title" class="section-title">Shop by Category</h2>
+      </div>
+      <div class="grid grid-cards" data-categories></div>
+      <div class="empty" data-categories-empty hidden>
+        No categories found.
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; <span id="year"></span> Shreeji Jewellers. All rights reserved.</p>
+    </div>
+  </footer>
+
+   Scripts 
+  <script src="assets/js/script.js" defer></script>
+</body>
+</html>

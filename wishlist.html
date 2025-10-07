@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Wishlist — Shreeji Jewellers</title>
+  <meta name="description" content="Your saved jewellery items at Shreeji Jewellers." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-page="wishlist">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-mark" aria-hidden="true">SJ</span>
+        <span class="sr-only">Shreeji Jewellers</span>
+      </a>
+      <nav class="nav">
+        <a class="nav-link" href="index.html">All Categories</a>
+        <a class="nav-link wishlist-badge" href="wishlist.html">
+          Wishlist
+          <span class="wishlist-count">0</span>
+        </a>
+        <a class="nav-link" href="login.html">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="breadcrumbs">
+      <a href="index.html" class="crumb">Home</a>
+      <span aria-hidden="true" class="crumb-sep">/</span>
+      <span class="crumb">Wishlist</span>
+    </section>
+
+    <section aria-labelledby="wishlist-title" class="section">
+      <div class="section-head">
+        <h1 id="wishlist-title" class="section-title">My Wishlist</h1>
+      </div>
+      <div class="grid grid-gallery" data-wishlist-items></div>
+      <div class="empty" data-wishlist-empty hidden>
+        Your wishlist is empty. Start adding your favorite items!
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; <span id="year"></span> Shreeji Jewellers. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Wishlist page functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set year
+      document.getElementById('year').textContent = new Date().getFullYear();
+      
+      // Load wishlist items
+      const wishlist = JSON.parse(localStorage.getItem('shreeji_wishlist') || '[]');
+      const grid = document.querySelector('[data-wishlist-items]');
+      const empty = document.querySelector('[data-wishlist-empty]');
+      
+      if (wishlist.length === 0) {
+        empty.hidden = false;
+      } else {
+        empty.hidden = true;
+        wishlist.forEach((item, index) => {
+          const fig = document.createElement('figure');
+          fig.className = 'card';
+          
+          const media = document.createElement('div');
+          media.className = 'card-media';
+          
+          const img = document.createElement('img');
+          img.src = item.image;
+          img.alt = item.alt;
+          media.appendChild(img);
+          
+          const cap = document.createElement('figcaption');
+          cap.className = 'card-body';
+          
+          const nameP = document.createElement('p');
+          nameP.className = 'card-meta';
+          nameP.textContent = item.alt;
+          cap.appendChild(nameP);
+          
+          if (item.weight) {
+            const weightP = document.createElement('p');
+            weightP.className = 'item-weight';
+            weightP.textContent = `Weight: ${item.weight}`;
+            cap.appendChild(weightP);
+          }
+          
+          // Remove button
+          const removeBtn = document.createElement('button');
+          removeBtn.className = 'action-btn wishlist active';
+          removeBtn.innerHTML = 'Remove from Wishlist';
+          removeBtn.addEventListener('click', function() {
+            const updatedWishlist = wishlist.filter(w => w.image !== item.image);
+            localStorage.setItem('shreeji_wishlist', JSON.stringify(updatedWishlist));
+            fig.remove();
+            
+            if (updatedWishlist.length === 0) {
+              empty.hidden = false;
+            }
+            
+            // Update badge
+            const badge = document.querySelector('.wishlist-count');
+            if (badge) {
+              badge.textContent = updatedWishlist.length;
+              badge.style.display = updatedWishlist.length > 0 ? 'grid' : 'none';
+            }
+          });
+          
+          cap.appendChild(removeBtn);
+          fig.appendChild(media);
+          fig.appendChild(cap);
+          grid.appendChild(fig);
+        });
+      }
+    });
+  </script>
+</body>
+</html>
