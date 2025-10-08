@@ -2,6 +2,225 @@
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
+  // Order Management
+  const ORDERS_KEY = 'shreeji_orders';
+
+  // Get all orders from localStorage
+  function getOrders() {
+    return JSON.parse(localStorage.getItem(ORDERS_KEY) || '[]');
+  }
+
+  // Save order to localStorage
+  function saveOrder(order) {
+    const orders = getOrders();
+    order.id = Date.now().toString(); // Simple unique ID
+    order.timestamp = new Date().toISOString();
+    orders.push(order);
+    localStorage.setItem(ORDERS_KEY, JSON.stringify(orders));
+    return order;
+  }
+
+  // Create and show order modal
+  function showOrderModal(item, alt, category) {
+    // Create modal HTML
+    const modalHTML = `
+      <div class="order-modal" id="orderModal">
+        <div class="order-modal-content">
+          <div class="order-modal-header">
+            <h2 class="order-modal-title">Order Now</h2>
+            <button class="order-modal-close" aria-label="Close order form">&times;</button>
+          </div>
+          <div class="order-modal-body">
+            <div class="order-product-preview">
+              <div class="order-product-image">
+                <img src="${item.image}" alt="${alt}" />
+              </div>
+              <div class="order-product-details">
+                <h3 class="order-product-name">${alt}</h3>
+                <p class="order-product-weight">Weight: ${item.weight}</p>
+                <p class="order-product-category">Category: ${category}</p>
+              </div>
+            </div>
+            
+            <form class="order-form" id="orderForm">
+              <div class="field">
+                <label for="order-name" class="label">Full Name *</label>
+                <input type="text" id="order-name" name="name" class="input" required placeholder="Enter your full name">
+              </div>
+              
+              <div class="field">
+                <label for="order-phone" class="label">Contact Number *</label>
+                <input type="tel" id="order-phone" name="phone" class="input" required placeholder="Enter your phone number">
+              </div>
+              
+              <div class="field">
+                <label for="order-address" class="label">Delivery Address *</label>
+                <textarea id="order-address" name="address" class="input" required placeholder="Enter your complete address" rows="3"></textarea>
+              </div>
+              
+              <div class="field">
+                <label for="order-quantity" class="label">Quantity *</label>
+                <input type="number" id="order-quantity" name="quantity" class="input" required min="1" value="1" placeholder="Enter quantity">
+              </div>
+              
+              <div class="field">
+                <label for="order-notes" class="label">Additional Notes</label>
+                <textarea id="order-notes" name="notes" class="input" placeholder="Any special requirements or notes..." rows="2"></textarea>
+              </div>
+              
+              <div class="order-form-actions">
+                <button type="button" class="btn" id="cancelOrder">Cancel</button>
+                <button type="submit" class="btn btn-primary">Place Order</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    // Add modal to page
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    const modal = document.getElementById('orderModal');
+    
+    // Close modal handlers
+    const closeModal = () => modal.classList.add('hidden');
+    
+    document.querySelector('.order-modal-close').addEventListener('click', closeModal);
+    document.getElementById('cancelOrder').addEventListener('click', closeModal);
+    
+    // Close on background click
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+    
+    // Form submission
+    document.getElementById('orderForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      handleOrderSubmission(item, alt, category);
+    });
+    
+    // Show modal
+    modal.classList.remove('hidden');
+  }
+
+  // Handle order form submission
+  function handleOrderSubmission(item, alt, category) {
+    const form = document.getElementById('orderForm');
+    const formData = new FormData(form);
+    
+    const order = {
+      product: {
+        name: alt,
+        image: item.image,
+        weight: item.weight,
+        category: category
+      },
+      customer: {
+        name: formData.get('name'),
+        phone: formData.get('phone'),
+        address: formData.get('address')
+      },
+      orderDetails: {
+        quantity: parseInt(formData.get('quantity')),
+        notes: formData.get('notes')
+      }
+    };
+    
+    // Validate required fields
+    if (!order.customer.name || !order.customer.phone || !order.customer.address || !order.orderDetails.quantity) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+    
+    try {
+      // Save to localStorage
+      const savedOrder = saveOrder(order);
+      
+      // Optional: Send email via EmailJS
+      sendOrderEmail(savedOrder);
+      
+      // Show success message
+      showOrderSuccess(savedOrder);
+      
+    } catch (error) {
+      console.error('Error saving order:', error);
+      alert('There was an error placing your order. Please try again.');
+    }
+  }
+
+  // Optional: Send order via EmailJS
+  function sendOrderEmail(order) {
+    // You'll need to set up EmailJS account and replace these with your details
+    const emailjsConfig = {
+      serviceId: 'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
+      templateId: 'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
+      publicKey: 'YOUR_PUBLIC_KEY' // Replace with your EmailJS public key
+    };
+    
+    // Check if EmailJS is available and configured
+    if (typeof emailjs !== 'undefined' && 
+        emailjsConfig.serviceId !== 'YOUR_SERVICE_ID') {
+      
+      const emailParams = {
+        to_email: 'your-email@example.com', // Your business email
+        from_name: order.customer.name,
+        from_phone: order.customer.phone,
+        from_address: order.customer.address,
+        product_name: order.product.name,
+        product_weight: order.product.weight,
+        product_category: order.product.category,
+        quantity: order.orderDetails.quantity,
+        notes: order.orderDetails.notes || 'No additional notes',
+        order_id: order.id,
+        order_date: new Date(order.timestamp).toLocaleDateString()
+      };
+      
+      emailjs.send(
+        emailjsConfig.serviceId,
+        emailjsConfig.templateId,
+        emailParams,
+        emailjsConfig.publicKey
+      )
+      .then(() => {
+        console.log('Order email sent successfully');
+      })
+      .catch((error) => {
+        console.warn('Failed to send order email:', error);
+        // Order is still saved in localStorage even if email fails
+      });
+    }
+  }
+
+  // Show order success message
+  function showOrderSuccess(order) {
+    const modalBody = document.querySelector('.order-modal-body');
+    modalBody.innerHTML = `
+      <div class="order-success">
+        <span class="order-success-icon">✅</span>
+        <h3 class="order-success-title">Order Placed Successfully!</h3>
+        <p class="order-success-message">
+          Thank you for your order, ${order.customer.name}!<br>
+          We'll contact you at ${order.customer.phone} to confirm details.
+        </p>
+        <div class="order-details">
+          <p><strong>Order ID:</strong> ${order.id}</p>
+          <p><strong>Product:</strong> ${order.product.name}</p>
+          <p><strong>Quantity:</strong> ${order.orderDetails.quantity}</p>
+        </div>
+        <button class="btn btn-primary" id="closeSuccess">Close</button>
+      </div>
+    `;
+    
+    document.getElementById('closeSuccess').addEventListener('click', () => {
+      document.getElementById('orderModal').classList.add('hidden');
+      // Remove modal from DOM after animation
+      setTimeout(() => {
+        const modal = document.getElementById('orderModal');
+        if (modal) modal.remove();
+      }, 300);
+    });
+  }
+
   // Wishlist Management
   const WISHLIST_KEY = 'shreeji_wishlist';
 
@@ -132,7 +351,7 @@
     return a;
   }
 
-  // Enhanced Gallery Item Creation
+  // Enhanced Gallery Item Creation with Order Now button
   function createGalleryItem(item, alt, category) {
     const fig = document.createElement("figure");
     fig.className = "card";
@@ -193,11 +412,25 @@
     const actions = document.createElement('div');
     actions.className = 'item-actions';
     
+    // Order Now button
+    const orderBtn = document.createElement('button');
+    orderBtn.className = 'action-btn order-now';
+    orderBtn.innerHTML = `
+      <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+        <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0020 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+      </svg>
+      Order Now
+    `;
+    orderBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showOrderModal(item, alt, category);
+    });
+    
     // WhatsApp button
     const whatsappBtn = document.createElement('button');
     whatsappBtn.className = 'action-btn whatsapp';
     whatsappBtn.innerHTML = `
-      <svg viewBox="0 0 24 24" fill="currentColor">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893-.001-3.189-1.248-6.189-3.515-8.452"/>
       </svg>
       Chat for Price
@@ -211,7 +444,7 @@
     const wishlistBtn = document.createElement('button');
     wishlistBtn.className = `action-btn wishlist ${isInWishlist(item.image) ? 'active' : ''}`;
     wishlistBtn.innerHTML = `
-      <svg viewBox="0 0 24 24" fill="currentColor">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
         <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
       </svg>
       Wishlist
@@ -228,6 +461,7 @@
       }
     });
     
+    actions.appendChild(orderBtn);
     actions.appendChild(whatsappBtn);
     actions.appendChild(wishlistBtn);
     cap.appendChild(actions);

@@ -649,6 +649,7 @@ input:focus-visible {
   padding-top: 0.75rem;
   border-top: 1px solid var(--border);
   flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .action-btn {
@@ -841,3 +842,226 @@ img {
   margin-bottom: 1rem;
   opacity: 0.5;
 }
+
+
+/* =========== Order Modal Styles =========== */
+.order-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  padding: 1rem;
+}
+
+.order-modal.hidden {
+  display: none;
+}
+
+.order-modal-content {
+  background: white;
+  border-radius: var(--radius);
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-md);
+}
+
+.order-modal-header {
+  padding: 1.25rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-modal-title {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.25rem;
+  margin: 0;
+  color: var(--text);
+}
+
+.order-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--muted);
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+}
+
+.order-modal-close:hover {
+  background: var(--border);
+}
+
+.order-modal-body {
+  padding: 1.25rem;
+}
+
+.order-product-preview {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.order-product-image {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.order-product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.order-product-details {
+  flex: 1;
+}
+
+.order-product-name {
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: var(--text);
+}
+
+.order-product-weight {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.order-form .field {
+  margin-bottom: 1rem;
+}
+
+.order-form .label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.order-form .input {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: #fff;
+  color: var(--text);
+  font-size: 0.95rem;
+  transition: all 0.15s;
+}
+
+.order-form .input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(196, 162, 76, 0.15);
+  outline: none;
+}
+
+.order-form-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.order-form-actions .btn {
+  flex: 1;
+}
+
+/* Order Success Message */
+.order-success {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.order-success-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.order-success-title {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.order-success-message {
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+/* Order Now Button in Card */
+.action-btn.order-now {
+  background: var(--primary);
+  color: #111;
+  border-color: var(--primary);
+  flex: 1;
+}
+
+.action-btn.order-now:hover {
+  background: #b8943a;
+  border-color: #b8943a;
+  transform: translateY(-1px);
+}
+
+/* Enhanced Item Actions Layout */
+.item-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.item-actions .action-btn {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+/* Responsive adjustments for modal */
+@media (max-width: 480px) {
+  .order-modal {
+    padding: 0.5rem;
+  }
+  
+  .order-product-preview {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .order-product-image {
+    align-self: center;
+  }
+  
+  .order-form-actions {
+    flex-direction: column;
+  }
+}
+
